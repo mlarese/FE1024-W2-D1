@@ -1,8 +1,11 @@
 package it.epicode.classi;
 
 import it.epicode.exceptions.LibroGiaPrestatoException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Libro {
+    private static final Logger logger = LoggerFactory.getLogger(Libro.class);
     private String titolo;
     private String autore;
     private int annoPubblicazione;
@@ -57,6 +60,8 @@ public class Libro {
     }
 
     public Libro(String titolo, String autore, int annoPubblicazione, String genere, String casaEditrice) {
+        logger.debug("creazione di un nuovo libro");
+
         this.titolo = titolo;
         this.autore = autore;
         this.annoPubblicazione = annoPubblicazione;
@@ -72,9 +77,14 @@ public class Libro {
     }
 
     public void presta( )  throws LibroGiaPrestatoException {
+        logger.debug("richiesta di prestito del libro: " + titolo);
+        logger.debug("l'attributo prestato è: " + prestato);
+
         if(prestato) {
+            logger.debug("il libro {} {} è già stato prestato " , titolo, casaEditrice);
             throw new LibroGiaPrestatoException( "Il libro è già stato prestato - non è possibile prestarlo nuovamente: " + titolo);
         }
+        logger.debug("Prestito effettuato");
         prestato= true;
     }
 

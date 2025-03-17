@@ -7,11 +7,18 @@ package it.epicode;
 
 import it.epicode.classi.Libro;
 import it.epicode.exceptions.LibroGiaPrestatoException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Scanner;
 
 public class MainTestPrestito {
+    private static final Logger logger = LoggerFactory.getLogger(MainTestPrestito.class);
+
     public static void main(String[] args) {
+
+        logger.info("inizializzazione della biblioteca");
+
         Libro[] biblioteca = {
                 new Libro("Il signore degli anelli", "J.R.R. Tolkien", 1954, "Fantasy", "Bompiani"),
                 new Libro("1984", "Orwell", 1949, "Distopico", "Secker & Warburg"),
@@ -19,6 +26,7 @@ public class MainTestPrestito {
 
         };
 
+        logger.debug("la biblioteca è stata inizializzata correttamente");
 
         boolean presta = true;
         System.out.println("Elenco dei libri disponibili:");
@@ -30,6 +38,8 @@ public class MainTestPrestito {
         Scanner scanner = new Scanner(System.in);
 
         while (presta) {
+            logger.debug("inizio del ciclo di prestito");
+
             Libro libroDaPrestare = null;
             try {
                 System.out.println("--------------------------------------------");
@@ -42,6 +52,7 @@ public class MainTestPrestito {
                     continue;
                 }
                 libroDaPrestare = biblioteca[scelta];
+                logger.debug("libro scelto: " + libroDaPrestare.getTitolo());
             } catch (Exception e) {
                 System.out.println("Errore nell'inserimento del numero del libro");
                 scanner.nextLine();
